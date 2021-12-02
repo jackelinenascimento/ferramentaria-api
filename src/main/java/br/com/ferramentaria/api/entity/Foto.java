@@ -16,11 +16,18 @@ public class Foto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_foto;
+	private Long idFoto;
 	
 	@Column(nullable = false)
 	private String caminho;
 	
 	public Foto() {};
 	
+	public Foto(String caminho) {
+		this.caminho = caminho;
+	}
+
+	public String getCaminho() {
+		return caminho;
+	}
 }

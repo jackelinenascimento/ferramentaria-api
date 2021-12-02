@@ -9,4 +9,8 @@ public class MessageResponseDto {
 
 	private String message;
 	
+	public String getMessage() {
+		return message;
+	}
+	
 }
