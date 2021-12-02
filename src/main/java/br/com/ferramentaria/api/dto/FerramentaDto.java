@@ -1,6 +1,8 @@
 package br.com.ferramentaria.api.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.enums.Disponibilidade;
@@ -78,6 +80,10 @@ public class FerramentaDto {
 							  ferramentaDto.getDescricao(),
 							  FotoDto.toModel(ferramentaDto.getFotoDto()),
 							  UsuarioDto.toModel(ferramentaDto.getProprietario()));
+	}
+
+	public static List<FerramentaDto> converter(List<Ferramenta> ferramentas) {
+		return ferramentas.stream().map(FerramentaDto::new).collect(Collectors.toList());
 	}
 
 }

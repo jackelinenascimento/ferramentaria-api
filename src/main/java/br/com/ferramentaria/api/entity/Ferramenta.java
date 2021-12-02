@@ -25,7 +25,7 @@ import lombok.experimental.Accessors;
 @Data
 @Entity
 @Getter
-@Setter
+@Setter	
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,8 +58,6 @@ public class Ferramenta {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario proprietario;
-
-	public Ferramenta() {};
 	
 	public Ferramenta(String nome,
 					  Tensao tensao,
