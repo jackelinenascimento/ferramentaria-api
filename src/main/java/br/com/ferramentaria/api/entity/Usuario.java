@@ -8,11 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -25,8 +22,7 @@ public class Usuario {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private Long idUsuario;
 	
 	private LocalDateTime dataCadastro = LocalDateTime.now();
 	
@@ -39,41 +35,31 @@ public class Usuario {
 	@Column(nullable = true)
 	private String senha;
     
-	private String logradouro;
-    
-	private String complemento;
-    
-	private String bairro;
-    
-	private String cidade;
-    
-	private String uf;
+	private Endereco endereco;
     
 	@Column(nullable = true)
 	private String cep;
     
     @Column(nullable = true)
-    private String telefone;
+    private Telefone telefone;
     
     public Usuario() {};
     
-    public Usuario(String nome, String email, String senha, String logradouro, String complemento, String bairro, 
-    		String cidade, String uf, String cep, String telefone) {
+    public Usuario(String nome,
+    			   String email,
+    			   String senha,
+    			   Endereco endereco,
+    			   Telefone telefone) {
     	
     	this.nome = nome;
     	this.email = email;
     	this.senha = senha;
-    	this.logradouro = logradouro;
-    	this.complemento = complemento;
-    	this.bairro = bairro;
-    	this.cidade = cidade;
-    	this.uf = uf;
-    	this.cep = cep;
+    	this.endereco = endereco;
     	this.telefone = telefone;
     }
 
-	public Long getId() {
-		return id;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
 	public LocalDateTime getDataCadastro() {
@@ -92,31 +78,11 @@ public class Usuario {
 		return senha;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public String getTelefone() {
+	public Telefone getTelefone() {
 		return telefone;
 	}
 }

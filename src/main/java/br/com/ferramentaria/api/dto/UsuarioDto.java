@@ -12,38 +12,28 @@ import lombok.Setter;
 @Setter
 public class UsuarioDto {
 	
-    private Long id;
+    private Long idUsuario;
 	private LocalDateTime dataCadastro;
     private String nome;
     private String email;
 	private String senha;
-	private String logradouro;
-    private String complemento;
-	private String bairro;
-	private String cidade;
-	private String uf;
-	private String cep;
-    private String telefone;
+	private EnderecoDto endereco;
+    private TelefoneDto telefone;
     
     public UsuarioDto() {};
     
     public UsuarioDto(Usuario usuario) {
-    	this.id = usuario.getId();
+    	this.idUsuario = usuario.getIdUsuario();
     	this.dataCadastro = usuario.getDataCadastro();
     	this.nome = usuario.getNome();
     	this.email = usuario.getEmail();
     	this.senha = usuario.getSenha();
-    	this.logradouro = usuario.getLogradouro();
-    	this.complemento = usuario.getComplemento();
-    	this.bairro = usuario.getBairro();
-    	this.cidade = usuario.getCidade();
-    	this.uf = usuario.getUf();
-    	this.cep = usuario.getCep();
-    	this.telefone = usuario.getTelefone();
+    	this.endereco = new EnderecoDto(usuario.getEndereco());
+    	this.telefone = new TelefoneDto(usuario.getTelefone());
     }
        
 	public Long getId() {
-		return id;
+		return idUsuario;
 	}
 
 	public LocalDateTime getDataCadastro() {
@@ -62,31 +52,11 @@ public class UsuarioDto {
 		return senha;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
+	public EnderecoDto getEndereco() {
+		return endereco;
 	}
 
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public String getTelefone() {
+	public TelefoneDto getTelefone() {
 		return telefone;
 	}
 
@@ -98,13 +68,8 @@ public class UsuarioDto {
 		return new Usuario(usuarioDto.getNome(),
 							usuarioDto.getEmail(),
 							usuarioDto.getSenha(),
-							usuarioDto.getLogradouro(),
-							usuarioDto.getComplemento(),
-							usuarioDto.getBairro(),
-							usuarioDto.getCidade(),
-							usuarioDto.getUf(),
-							usuarioDto.getCep(),
-							usuarioDto.getTelefone());
+							EnderecoDto.toModel(usuarioDto.getEndereco()),
+							TelefoneDto.toModel(usuarioDto.getTelefone()));
 		
 	}
 

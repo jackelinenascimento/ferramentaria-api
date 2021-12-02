@@ -1,42 +1,83 @@
 package br.com.ferramentaria.api.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import br.com.ferramentaria.api.entity.Ferramenta;
+import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
+import br.com.ferramentaria.api.entity.enums.Tensao;
 
 public class FerramentaDto {
 
-    private Long id;	
+    private Long idFerramenta;	
 	private LocalDateTime dataCadastro;
     private String nome;
     private String descricao;
-	private String tensao;
+	private Tensao tensao;
 	private Modalidade modalidade;
+	private Disponibilidade disponibilidade;
 	private FotoDto fotoDto;
 	private UsuarioDto proprietario;
+	
 	public FerramentaDto() {};
 	
 	public FerramentaDto(Ferramenta ferramenta) {
-		this.id = ferramenta.getId();
+		this.idFerramenta = ferramenta.getIdFerramenta();
 		this.dataCadastro = ferramenta.getDataCadastro();
 		this.nome = ferramenta.getNome();
 		this.descricao = ferramenta.getDescricao();
 		this.tensao = ferramenta.getTensao();
 		this.modalidade = ferramenta.getModalidade();
-		this.fotoDto = this.foto();
-		this.proprietario = new UsuarioDto();
+		this.disponibilidade = ferramenta.getDisponibilidade();
+		this.fotoDto = new FotoDto(ferramenta.getFoto().getCaminho());
+		this.proprietario = new UsuarioDto(ferramenta.getProprietario());
 		
 	}
-	private FotoDto foto() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Long getIdFerramenta() {
+		return idFerramenta;
 	}
 
-	public static List<FerramentaDto> converter(List<Ferramenta> ferramentas) {
-		// TODO Auto-generated method stub
-		return null;
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public Tensao getTensao() {
+		return tensao;
+	}
+
+	public Modalidade getModalidade() {
+		return modalidade;
+	}
+
+	public Disponibilidade getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public FotoDto getFotoDto() {
+		return fotoDto;
+	}
+
+	public UsuarioDto getProprietario() {
+		return proprietario;
+	}
+
+	public static Ferramenta toModel(FerramentaDto ferramentaDto) {
+		return new Ferramenta(ferramentaDto.getNome(),
+							  ferramentaDto.getTensao(),
+							  ferramentaDto.getModalidade(),
+							  ferramentaDto.getDisponibilidade(),
+							  ferramentaDto.getDescricao(),
+							  FotoDto.toModel(ferramentaDto.getFotoDto()),
+							  UsuarioDto.toModel(ferramentaDto.getProprietario()));
 	}
 
 }
