@@ -2,6 +2,7 @@ package br.com.ferramentaria.api.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +37,10 @@ public class Usuario {
 	@Column(nullable = true)
 	private String senha;
     	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
     
-	@OneToOne	
+	@OneToOne(cascade = CascadeType.ALL)	
     private Telefone telefone;
     
     public Usuario() {};
