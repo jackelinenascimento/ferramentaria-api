@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.Getter;
@@ -34,13 +35,11 @@ public class Usuario {
 
 	@Column(nullable = true)
 	private String senha;
-    
+    	
+	@OneToOne
 	private Endereco endereco;
     
-	@Column(nullable = true)
-	private String cep;
-    
-    @Column(nullable = true)
+	@OneToOne	
     private Telefone telefone;
     
     public Usuario() {};
