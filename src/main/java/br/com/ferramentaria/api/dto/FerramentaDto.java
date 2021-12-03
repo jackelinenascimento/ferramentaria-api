@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
+import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.entity.enums.Tensao;
 
 public class FerramentaDto {
@@ -20,6 +21,7 @@ public class FerramentaDto {
 	private Disponibilidade disponibilidade;
 	private FotoDto fotoDto;
 	private UsuarioDto proprietario;
+	private Status status;
 	
 	public FerramentaDto() {};
 	
@@ -33,6 +35,7 @@ public class FerramentaDto {
 		this.disponibilidade = ferramenta.getDisponibilidade();
 		this.fotoDto = new FotoDto(ferramenta.getFoto().getCaminho());
 		this.proprietario = new UsuarioDto(ferramenta.getProprietario());
+		this.status = ferramenta.getStatus();
 		
 	}
 	
@@ -72,6 +75,9 @@ public class FerramentaDto {
 		return proprietario;
 	}
 
+	public Status getStatus() {
+		return status;
+	}
 	public static Ferramenta toModel(FerramentaDto ferramentaDto) {
 		return new Ferramenta(ferramentaDto.getNome(),
 							  ferramentaDto.getTensao(),

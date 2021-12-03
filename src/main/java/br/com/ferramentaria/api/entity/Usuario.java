@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,7 +42,7 @@ public class Usuario {
 	@OneToOne(cascade = CascadeType.ALL)	
     private Telefone telefone;
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
     
     public Usuario() {};
