@@ -7,8 +7,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.ferramentaria.api.dto.MessageResponseDto;
 import br.com.ferramentaria.api.dto.UsuarioDto;
+import br.com.ferramentaria.api.dto.response.MessageResponseDto;
+import br.com.ferramentaria.api.dto.response.UsuarioResponse;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
 import br.com.ferramentaria.api.repository.UsuarioRepository;
@@ -19,9 +20,9 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	public List<UsuarioDto> listaUsuarios() {
+	public List<UsuarioResponse> listaUsuarios() {
 		List<Usuario> usuarios =  usuarioRepository.findAll();
-		return UsuarioDto.converter(usuarios);	
+		return UsuarioResponse.converter(usuarios);	
 	}
 
 	public UsuarioDto pesquisarPorId(Long id) throws UsuarioNaoEncontrado {
@@ -41,7 +42,7 @@ public class UsuarioService {
 		return messageResponse;
 	}	
 
-	private Usuario verificaSeExistePorId(Long id) throws UsuarioNaoEncontrado {
+	public Usuario verificaSeExistePorId(Long id) throws UsuarioNaoEncontrado {
 		return usuarioRepository.findById(id).orElseThrow(() ->
 			new UsuarioNaoEncontrado(id));
 	}

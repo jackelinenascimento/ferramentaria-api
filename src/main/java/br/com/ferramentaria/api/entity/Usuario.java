@@ -36,10 +36,10 @@ public class Usuario {
 	@Column(nullable = true)
 	private String senha;
     	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Endereco endereco;
     
-	@OneToOne(cascade = CascadeType.ALL)	
+	@OneToOne(cascade=CascadeType.PERSIST)
     private Telefone telefone;
 	
 	@Enumerated(EnumType.STRING)

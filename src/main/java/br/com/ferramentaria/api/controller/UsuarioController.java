@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ferramentaria.api.dto.MessageResponseDto;
 import br.com.ferramentaria.api.dto.UsuarioDto;
+import br.com.ferramentaria.api.dto.response.MessageResponseDto;
+import br.com.ferramentaria.api.dto.response.UsuarioResponse;
 import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
 import br.com.ferramentaria.api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@GetMapping
-	public List<UsuarioDto> listaUsuarios(){
+	public List<UsuarioResponse> listaUsuarios(){
 		return usuarioService.listaUsuarios();
 	}
 	

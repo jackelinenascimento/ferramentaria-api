@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ferramentaria.api.dto.FerramentaDto;
+import br.com.ferramentaria.api.dto.response.FerramentaResponse;
+import br.com.ferramentaria.api.dto.response.MessageResponseDto;
+import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
 import br.com.ferramentaria.api.service.FerramentaService;
 import lombok.RequiredArgsConstructor;
 
@@ -26,14 +29,15 @@ public class FerramentaController {
 	private FerramentaService ferramentaService;
 	
 	@GetMapping
-	public List<FerramentaDto> listarFerramentas(){
+	public List<FerramentaResponse> listarFerramentas(){
 		return ferramentaService.listarFerramentas();
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public FerramentaDto cadastrarFerramenta(@RequestBody FerramentaDto ferramentaDto) {
+	public MessageResponseDto cadastrarFerramenta(@RequestBody FerramentaDto ferramentaDto) throws UsuarioNaoEncontrado {
 		return ferramentaService.cadastrarFerramenta(ferramentaDto);
 	}
 
 }
+	
