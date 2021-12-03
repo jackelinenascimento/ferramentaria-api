@@ -5,20 +5,18 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Data
 @Entity
-@Getter
-@Setter
 @Accessors(chain = true)
 public class Usuario {
 
@@ -42,6 +40,9 @@ public class Usuario {
     
 	@OneToOne(cascade = CascadeType.ALL)	
     private Telefone telefone;
+	
+	@Enumerated
+	private Status status = Status.ATIVO;
     
     public Usuario() {};
     
@@ -70,12 +71,25 @@ public class Usuario {
 		return nome;
 	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public String getEmail() {
 		return email;
+	}
+	
+	@SuppressWarnings("unused")
+	private void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {
 		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Endereco getEndereco() {
@@ -84,5 +98,13 @@ public class Usuario {
 
 	public Telefone getTelefone() {
 		return telefone;
+	}
+	
+	public Status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

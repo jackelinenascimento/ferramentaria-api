@@ -2,6 +2,8 @@ package br.com.ferramentaria.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ferramentaria.api.dto.MessageResponseDto;
 import br.com.ferramentaria.api.dto.UsuarioDto;
 import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
 import br.com.ferramentaria.api.service.UsuarioService;
@@ -37,14 +40,15 @@ public class UsuarioController {
 		return usuarioService.pesquisarPorId(id);
 	}
 	
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	public UsuarioDto pesquisarPorEmail(@PathVariable String email) throws UsuarioNaoEncontrado {
 		return usuarioService.pesquisarPorEmail(email);
 	}
 	
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioDto cadastrarUsuario(@RequestBody UsuarioDto usuarioDto){
+    public MessageResponseDto cadastrarUsuario(@RequestBody @Valid UsuarioDto usuarioDto){
         return usuarioService.cadastrarUsuario(usuarioDto);
     }
+	
 }	

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ferramentaria.api.dto.MessageResponseDto;
 import br.com.ferramentaria.api.dto.UsuarioDto;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
@@ -24,28 +25,34 @@ public class UsuarioService {
 	}
 
 	public UsuarioDto pesquisarPorId(Long id) throws UsuarioNaoEncontrado {
-		Usuario usuario = verificaSeExiste(id);
+		Usuario usuario = verificaSeExistePorId(id);
 		return new UsuarioDto(usuario);
 	}
 
 	public UsuarioDto pesquisarPorEmail(String email) throws UsuarioNaoEncontrado {
-		Usuario usuario = verificaSeExiste(email);
+		Usuario usuario = verificaSeExistePorEmail(email);
 		return new UsuarioDto(usuario);
 	}
 
-	public UsuarioDto cadastrarUsuario(@Valid UsuarioDto usuarioDto) {
-		Usuario usuarioSalvar = UsuarioDto.toModel(usuarioDto);
-		Usuario usuarioSalvo = usuarioRepository.save(usuarioSalvar);
-		return new UsuarioDto(usuarioSalvo);
+	public MessageResponseDto cadastrarUsuario(@Valid UsuarioDto usuarioDto) {
+		Usuario usuarioSalvo = usuarioRepository.save(UsuarioDto.toModel(usuarioDto));
+		
+		MessageResponseDto messageResponse = criarMensagemResposta("Usuario criado - ID: ", usuarioSalvo.getIdUsuario());
+		return messageResponse;
 	}	
 
-	private Usuario verificaSeExiste(Long id) throws UsuarioNaoEncontrado {
+	private Usuario verificaSeExistePorId(Long id) throws UsuarioNaoEncontrado {
 		return usuarioRepository.findById(id).orElseThrow(() ->
 			new UsuarioNaoEncontrado(id));
 	}
 
-	private Usuario verificaSeExiste(String email) throws UsuarioNaoEncontrado {
+	private Usuario verificaSeExistePorEmail(String email) throws UsuarioNaoEncontrado {
 		return usuarioRepository.findByEmail(email).orElseThrow(() ->
 			new UsuarioNaoEncontrado(email));
 	}
+	
+	private MessageResponseDto criarMensagemResposta(String s, Long id) {
+		return MessageResponseDto.message(s + id);
+	}
+
 }
