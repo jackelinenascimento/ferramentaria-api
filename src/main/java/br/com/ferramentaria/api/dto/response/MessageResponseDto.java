@@ -1,4 +1,4 @@
-package br.com.ferramentaria.api.dto;
+package br.com.ferramentaria.api.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

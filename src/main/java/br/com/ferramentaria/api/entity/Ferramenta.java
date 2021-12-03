@@ -2,7 +2,6 @@ package br.com.ferramentaria.api.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,16 +18,13 @@ import br.com.ferramentaria.api.entity.enums.Tensao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Data
 @Entity
 @Getter
-@Setter	
-
-@NoArgsConstructor
+@Setter		
 @AllArgsConstructor
 @Accessors(chain = true)
 public class Ferramenta {
@@ -54,28 +50,25 @@ public class Ferramenta {
 	@Column(length=200, nullable=true, unique=false)
     private String descricao;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Foto foto;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Usuario proprietario;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
+	
+	public Ferramenta() {};
 	
 	public Ferramenta(String nome,
 					  Tensao tensao,
 					  Modalidade modalidade,
 					  Disponibilidade disponibilidade,
 					  String descricao,
-					  Foto foto,
 					  Usuario proprietario) {
 		this.nome = nome;
 		this.tensao = tensao;
 		this.modalidade = modalidade;
 		this.disponibilidade = disponibilidade;
 		this.descricao = descricao;
-		this.foto = foto;
 		this.proprietario = proprietario;
 	}
 	
@@ -105,10 +98,6 @@ public class Ferramenta {
 
 	public Disponibilidade getDisponibilidade() {
 		return disponibilidade;
-	}
-	
-	public Foto getFoto() {
-		return foto;
 	}
 
 	public Usuario getProprietario() {

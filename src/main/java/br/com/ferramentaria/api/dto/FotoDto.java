@@ -9,19 +9,15 @@ public class FotoDto {
 		
 	public FotoDto() {};
 	
+	public FotoDto(String caminho) {
+		this.caminho = caminho;
+	}
+
 	public String getCaminho() {
 		return caminho;
 	}
 	
-	public Long getIdFoto() {
-		return idFoto;
-	}
-	
-	public FotoDto(String caminho) {
-		this.caminho = caminho;
-	}
-	
 	public static Foto toModel(FotoDto fotoDto) {
-		return new Foto(fotoDto.getCaminho());
+		return new Foto();
 	}
 }

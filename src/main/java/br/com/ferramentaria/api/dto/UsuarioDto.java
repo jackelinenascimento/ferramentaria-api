@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.ferramentaria.api.entity.Endereco;
+import br.com.ferramentaria.api.entity.Telefone;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.Getter;
@@ -16,10 +18,10 @@ public class UsuarioDto {
     private Long idUsuario;
 	private LocalDateTime dataCadastro;
     private String nome;
-    private String email;
+    private String email;	
 	private String senha;
-	private EnderecoDto endereco;
-    private TelefoneDto telefone;
+	private Endereco endereco;
+    private Telefone telefone;
     private Status status;
     
     public UsuarioDto() {};
@@ -30,8 +32,8 @@ public class UsuarioDto {
     	this.nome = usuario.getNome();
     	this.email = usuario.getEmail();
     	this.senha = usuario.getSenha();
-    	this.endereco = new EnderecoDto(usuario.getEndereco());
-    	this.telefone = new TelefoneDto(usuario.getTelefone());
+    	this.endereco = usuario.getEndereco();
+    	this.telefone = usuario.getTelefone();
     	this.status = usuario.getStatus();
     }
        
@@ -55,11 +57,11 @@ public class UsuarioDto {
 		return senha;
 	}
 
-	public EnderecoDto getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public TelefoneDto getTelefone() {
+	public Telefone getTelefone() {
 		return telefone;
 	}
 	
@@ -75,9 +77,7 @@ public class UsuarioDto {
 		return new Usuario(usuarioDto.getNome(),
 							usuarioDto.getEmail(),
 							usuarioDto.getSenha(),
-							EnderecoDto.toModel(usuarioDto.getEndereco()),
-							TelefoneDto.toModel(usuarioDto.getTelefone()));
-		
+							usuarioDto.getEndereco(),
+							usuarioDto.getTelefone());
 	}
-
 }
