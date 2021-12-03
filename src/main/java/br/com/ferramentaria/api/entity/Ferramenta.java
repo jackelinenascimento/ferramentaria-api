@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 
 import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
+import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.entity.enums.Tensao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -58,6 +59,9 @@ public class Ferramenta {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario proprietario;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.ATIVO;
 	
 	public Ferramenta(String nome,
 					  Tensao tensao,
@@ -109,5 +113,9 @@ public class Ferramenta {
 
 	public Usuario getProprietario() {
 		return proprietario;
+	}
+	
+	public Status getStatus() {
+		return status;
 	}
 }
