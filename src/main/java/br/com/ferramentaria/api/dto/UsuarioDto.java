@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.ferramentaria.api.entity.Usuario;
+import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ public class UsuarioDto {
 	private String senha;
 	private EnderecoDto endereco;
     private TelefoneDto telefone;
+    private Status status;
     
     public UsuarioDto() {};
     
@@ -30,6 +32,7 @@ public class UsuarioDto {
     	this.senha = usuario.getSenha();
     	this.endereco = new EnderecoDto(usuario.getEndereco());
     	this.telefone = new TelefoneDto(usuario.getTelefone());
+    	this.status = usuario.getStatus();
     }
        
 	public Long getId() {
@@ -58,6 +61,10 @@ public class UsuarioDto {
 
 	public TelefoneDto getTelefone() {
 		return telefone;
+	}
+	
+	public Status getStatus() {
+		return status;
 	}
 
 	public static List<UsuarioDto> converter(List<Usuario> usuarios) {

@@ -9,8 +9,12 @@ public class MessageResponseDto {
 
 	private String message;
 	
-	public String getMessage() {
-		return message;
+	public MessageResponseDto(String message) {
+		this.message = message;
 	}
-	
+
+	public static MessageResponseDto message(String message) {
+		return new MessageResponseDto(message);
+	}
+
 }
