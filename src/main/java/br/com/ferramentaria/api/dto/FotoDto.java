@@ -13,6 +13,10 @@ public class FotoDto {
 		this.caminho = caminho;
 	}
 
+	public Long getIdFoto() {
+		return idFoto;
+	}
+
 	public String getCaminho() {
 		return caminho;
 	}
@@ -20,4 +24,5 @@ public class FotoDto {
 	public static Foto toModel(FotoDto fotoDto) {
 		return new Foto();
 	}
+
 }
