@@ -29,13 +29,7 @@ public class FerramentaService {
 	public MessageResponseDto cadastrarFerramenta(FerramentaDto ferramentaDto) throws UsuarioNaoEncontrado {
 		
 		Ferramenta ferramenta = ferramentaRepository.save(FerramentaDto.toModel(ferramentaDto));
-		
-		MessageResponseDto messageResponse = criarMensagemResposta("Ferramenta salva - ID: ", ferramenta.getIdFerramenta());
-		return messageResponse;
-	}
-	
-	private MessageResponseDto criarMensagemResposta(String s, Long id) {
-		return MessageResponseDto.message(s + id);
+		return MessageResponseDto.message("Ferramenta salva - ID: " +  ferramenta.getIdFerramenta());
 	}
 
 	public FerramentaResponse pesquisaPorId(Long id) throws FerramentaNaoEncontrada {

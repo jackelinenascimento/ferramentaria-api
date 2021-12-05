@@ -1,6 +1,7 @@
 package br.com.ferramentaria.api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -35,11 +36,16 @@ public class UsuarioService {
 		return new UsuarioResponse(usuario);
 	}
 
-	public MessageResponseDto cadastrarUsuario(@Valid UsuarioDto usuarioDto) {
-		Usuario usuarioSalvo = usuarioRepository.save(UsuarioDto.toModel(usuarioDto));
+	public MessageResponseDto cadastrarUsuario(@Valid UsuarioDto usuarioDto) throws Exception {
 		
-		MessageResponseDto messageResponse = criarMensagemResposta("Usuario criado - ID: ", usuarioSalvo.getIdUsuario());
-		return messageResponse;
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioDto.getEmail());
+		
+		if(usuario.isPresent()) {
+			throw new Exception("E-mail já cadastrado");			
+		}
+		
+		Usuario usuarioSalvo = usuarioRepository.save(UsuarioDto.toModel(usuarioDto));
+		return MessageResponseDto.message("Usuario criado - ID: " +  usuarioSalvo.getIdUsuario());
 	}	
 
 	public Usuario verificaSeExistePorId(Long id) throws UsuarioNaoEncontrado {
@@ -51,9 +57,4 @@ public class UsuarioService {
 		return usuarioRepository.findByEmail(email).orElseThrow(() ->
 			new UsuarioNaoEncontrado(email));
 	}
-	
-	private MessageResponseDto criarMensagemResposta(String s, Long id) {
-		return MessageResponseDto.message(s + id);
-	}
-
 }
