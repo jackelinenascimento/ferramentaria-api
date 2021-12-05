@@ -31,12 +31,12 @@ public class AnuncioService {
 		return new AnuncioResponse(anuncio);
 	}
 
-	public MessageResponseDto cadastrarAnuncio(@Valid AnuncioDto anuncioDto) throws Exception {
+	public MessageResponseDto cadastrarAnuncio(@Valid AnuncioDto anuncioDto) {
 		
 		Optional<Anuncio> anuncio = anuncioRepository.findByFerramentaIdFerramenta(anuncioDto.getFerramenta().getIdFerramenta());
 		
 		if(anuncio.isPresent()) {
-			throw new Exception("Ferramenta já publicada");
+			throw new IllegalArgumentException("Ferramenta já publicada");
 		}
 		
 		Anuncio anuncioSalvo = anuncioRepository.save(AnuncioDto.toModel(anuncioDto));

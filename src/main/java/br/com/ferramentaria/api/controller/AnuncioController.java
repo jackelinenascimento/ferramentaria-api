@@ -41,7 +41,7 @@ public class AnuncioController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageResponseDto cadastrarAnuncio(@RequestBody @Valid AnuncioDto anuncioDto) throws Exception {
+	public MessageResponseDto cadastrarAnuncio(@RequestBody @Valid AnuncioDto anuncioDto) {
 		return anuncioService.cadastrarAnuncio(anuncioDto);
 	}
 }
