@@ -37,12 +37,12 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/{id}")
-	public UsuarioDto pesquisarPorId(@PathVariable Long id) throws UsuarioNaoEncontrado {
+	public UsuarioResponse pesquisarPorId(@PathVariable Long id) throws UsuarioNaoEncontrado {
 		return usuarioService.pesquisarPorId(id);
 	}
 	
 	@GetMapping("/email/{email}")
-	public UsuarioDto pesquisarPorEmail(@PathVariable String email) throws UsuarioNaoEncontrado {
+	public UsuarioResponse pesquisarPorEmail(@PathVariable String email) throws UsuarioNaoEncontrado {
 		return usuarioService.pesquisarPorEmail(email);
 	}
 	

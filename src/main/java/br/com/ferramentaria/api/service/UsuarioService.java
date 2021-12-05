@@ -25,14 +25,14 @@ public class UsuarioService {
 		return UsuarioResponse.converter(usuarios);	
 	}
 
-	public UsuarioDto pesquisarPorId(Long id) throws UsuarioNaoEncontrado {
+	public UsuarioResponse pesquisarPorId(Long id) throws UsuarioNaoEncontrado {
 		Usuario usuario = verificaSeExistePorId(id);
-		return new UsuarioDto(usuario);
+		return new UsuarioResponse(usuario);
 	}
 
-	public UsuarioDto pesquisarPorEmail(String email) throws UsuarioNaoEncontrado {
+	public UsuarioResponse pesquisarPorEmail(String email) throws UsuarioNaoEncontrado {
 		Usuario usuario = verificaSeExistePorEmail(email);
-		return new UsuarioDto(usuario);
+		return new UsuarioResponse(usuario);
 	}
 
 	public MessageResponseDto cadastrarUsuario(@Valid UsuarioDto usuarioDto) {
