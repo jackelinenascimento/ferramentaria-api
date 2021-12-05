@@ -19,7 +19,8 @@ public class FerramentaService {
 	@Autowired
 	private FerramentaRepository ferramentaRepository;
 	
-	@Autowired UsuarioService usuarioService;
+	@Autowired 
+	private UsuarioService usuarioService;
 	
 	public List<FerramentaResponse> listarFerramentas(){
 		List<Ferramenta> ferramentas = ferramentaRepository.findAll();
@@ -27,6 +28,8 @@ public class FerramentaService {
 	}
 
 	public MessageResponseDto cadastrarFerramenta(FerramentaDto ferramentaDto) throws UsuarioNaoEncontrado {
+		
+		usuarioService.verificaSeExistePorId(ferramentaDto.getProprietario().getIdUsuario());
 		
 		Ferramenta ferramenta = ferramentaRepository.save(FerramentaDto.toModel(ferramentaDto));
 		return MessageResponseDto.message("Ferramenta salva - ID: " +  ferramenta.getIdFerramenta());

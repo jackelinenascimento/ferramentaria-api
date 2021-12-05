@@ -36,12 +36,12 @@ public class UsuarioService {
 		return new UsuarioResponse(usuario);
 	}
 
-	public MessageResponseDto cadastrarUsuario(@Valid UsuarioDto usuarioDto) throws Exception {
+	public MessageResponseDto cadastrarUsuario(@Valid UsuarioDto usuarioDto){
 		
 		Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioDto.getEmail());
 		
 		if(usuario.isPresent()) {
-			throw new Exception("E-mail já cadastrado");			
+			throw new IllegalArgumentException("E-mail já cadastrado");			
 		}
 		
 		Usuario usuarioSalvo = usuarioRepository.save(UsuarioDto.toModel(usuarioDto));

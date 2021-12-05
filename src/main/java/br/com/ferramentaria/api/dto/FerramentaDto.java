@@ -3,6 +3,7 @@ package br.com.ferramentaria.api.dto;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.Usuario;
@@ -27,16 +28,16 @@ public class FerramentaDto {
 	private String nome;
 	private String descricao;
 	
-	@NotEmpty
+	@NotNull
 	private Tensao tensao;
 	
-	@NotEmpty
+	@NotNull
 	private Modalidade modalidade;
 	
-	@NotEmpty
+	@NotNull
 	private Disponibilidade disponibilidade;
 	
-	@NotEmpty
+	@NotNull
 	private Usuario proprietario;
 	
 	private Status status;
