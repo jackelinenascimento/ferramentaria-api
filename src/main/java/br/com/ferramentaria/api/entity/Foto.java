@@ -7,15 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
 @Data
-@Accessors(chain = true)
+@NoArgsConstructor
 public class Foto {
 
 	@Id
@@ -24,8 +20,6 @@ public class Foto {
 	
 	@Column(nullable = false)
 	private String caminho;
-	
-	public Foto() {};
 	
 	public Foto(String caminho) {
 		this.caminho = caminho;

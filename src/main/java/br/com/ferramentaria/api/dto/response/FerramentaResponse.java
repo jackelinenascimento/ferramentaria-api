@@ -8,7 +8,11 @@ import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
 import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.entity.enums.Tensao;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class FerramentaResponse {
 
     private Long idFerramenta;	
@@ -20,8 +24,6 @@ public class FerramentaResponse {
 	private Long proprietarioId;
 	private Status status;
 	
-	public FerramentaResponse() {};
-	
 	public FerramentaResponse(Ferramenta ferramenta) {
 		this.idFerramenta = ferramenta.getIdFerramenta();
 		this.nome = ferramenta.getNome();
@@ -30,40 +32,7 @@ public class FerramentaResponse {
 		this.modalidade = ferramenta.getModalidade();
 		this.disponibilidade = ferramenta.getDisponibilidade();
 		this.status = ferramenta.getStatus();
-		this.proprietarioId = ferramenta.getProprietario().getIdUsuario();
-		
-	}
-	
-	public Long getIdFerramenta() {
-		return idFerramenta;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public Tensao getTensao() {
-		return tensao;
-	}
-
-	public Modalidade getModalidade() {
-		return modalidade;
-	}
-
-	public Disponibilidade getDisponibilidade() {
-		return disponibilidade;
-	}
-
-	public Long getProprietarioId() {
-		return proprietarioId;
-	}
-
-	public Status getStatus() {
-		return status;
+		this.proprietarioId = ferramenta.getProprietario().getIdUsuario();		
 	}
 
 	public static List<FerramentaResponse> converter(List<Ferramenta> ferramentas) {
