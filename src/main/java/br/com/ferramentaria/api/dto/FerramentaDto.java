@@ -1,8 +1,6 @@
 package br.com.ferramentaria.api.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.Usuario;
@@ -10,7 +8,11 @@ import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
 import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.entity.enums.Tensao;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class FerramentaDto {
 
     private Long idFerramenta;	
@@ -23,8 +25,6 @@ public class FerramentaDto {
 	private Usuario proprietario;
 	private Status status;
 	
-	public FerramentaDto() {};
-	
 	public FerramentaDto(Ferramenta ferramenta) {
 		this.idFerramenta = ferramenta.getIdFerramenta();
 		this.dataCadastro = ferramenta.getDataCadastro();
@@ -34,44 +34,7 @@ public class FerramentaDto {
 		this.modalidade = ferramenta.getModalidade();
 		this.disponibilidade = ferramenta.getDisponibilidade();
 		this.status = ferramenta.getStatus();
-		this.proprietario = ferramenta.getProprietario();
-		
-	}
-	
-	public Long getIdFerramenta() {
-		return idFerramenta;
-	}
-
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public Tensao getTensao() {
-		return tensao;
-	}
-
-	public Modalidade getModalidade() {
-		return modalidade;
-	}
-
-	public Disponibilidade getDisponibilidade() {
-		return disponibilidade;
-	}
-
-	public Usuario getProprietario() {
-		return proprietario;
-	}
-
-	public Status getStatus() {
-		return status;
+		this.proprietario = ferramenta.getProprietario();	
 	}
 	
 	public static Ferramenta toModel(FerramentaDto ferramentaDto) {
@@ -81,10 +44,6 @@ public class FerramentaDto {
 							  ferramentaDto.getDisponibilidade(),
 							  ferramentaDto.getDescricao(),
 							  ferramentaDto.getProprietario());
-	}
-
-	public static List<FerramentaDto> converter(List<Ferramenta> ferramentas) {
-		return ferramentas.stream().map(FerramentaDto::new).collect(Collectors.toList());
 	}
 
 }

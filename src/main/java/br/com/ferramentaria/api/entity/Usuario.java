@@ -14,11 +14,12 @@ import javax.persistence.OneToOne;
 
 import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
-@Data
+
 @Entity
-@Accessors(chain = true)
+@Data
+@NoArgsConstructor
 public class Usuario {
 
 	@Id
@@ -45,8 +46,6 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
     
-    public Usuario() {};
-    
     public Usuario(String nome,
     			   String email,
     			   String senha,
@@ -60,52 +59,4 @@ public class Usuario {
     	this.telefone = telefone;
     }
 
-	public Long getIdUsuario() {
-		return idUsuario;
-	}
-
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	@SuppressWarnings("unused")
-	private void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-	
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public Telefone getTelefone() {
-		return telefone;
-	}
-	
-	public Status getStatus() {
-		return status;
-	}
-	
-	public void setStatus(Status status) {
-		this.status = status;
-	}
 }

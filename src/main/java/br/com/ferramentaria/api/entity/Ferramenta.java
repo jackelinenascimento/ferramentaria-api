@@ -15,18 +15,12 @@ import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
 import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.entity.enums.Tensao;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@Getter
-@Setter		
-@AllArgsConstructor
-@Accessors(chain = true)
+@Data
+@NoArgsConstructor
 public class Ferramenta {
 	
 	@Id
@@ -56,8 +50,6 @@ public class Ferramenta {
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
 	
-	public Ferramenta() {};
-	
 	public Ferramenta(String nome,
 					  Tensao tensao,
 					  Modalidade modalidade,
@@ -70,41 +62,5 @@ public class Ferramenta {
 		this.disponibilidade = disponibilidade;
 		this.descricao = descricao;
 		this.proprietario = proprietario;
-	}
-	
-	public Long getIdFerramenta() {
-		return idFerramenta;
-	}
-
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public Tensao getTensao() {
-		return tensao;
-	}
-
-	public Modalidade getModalidade() {
-		return modalidade;
-	}
-
-	public Disponibilidade getDisponibilidade() {
-		return disponibilidade;
-	}
-
-	public Usuario getProprietario() {
-		return proprietario;
-	}
-	
-	public Status getStatus() {
-		return status;
 	}
 }

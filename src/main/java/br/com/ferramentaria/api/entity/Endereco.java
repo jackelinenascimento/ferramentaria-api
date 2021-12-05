@@ -7,15 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
-@Data
+
 @Entity
-@Getter
-@Setter
-@Accessors(chain = true)
+@Data
+@NoArgsConstructor
 public class Endereco {
 	
 	@Id
@@ -35,8 +32,6 @@ public class Endereco {
 	@Column(nullable = true)
 	private String cep;
 	
-	public Endereco() {};
-	
 	public Endereco(String logradouro, String complemento, String bairro, String cidade, String uf, String cep) {
 		this.logradouro = logradouro;
 		this.complemento = complemento;
@@ -46,31 +41,4 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public Long getEnderecoId() {
-		return enderecoId;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public String getCep() {
-		return cep;
-	}
 }
