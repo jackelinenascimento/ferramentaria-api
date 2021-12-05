@@ -1,39 +1,47 @@
 package br.com.ferramentaria.api.dto;
 
-import br.com.ferramentaria.api.entity.Endereco;
-import br.com.ferramentaria.api.entity.Telefone;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class UsuarioDto {
 	
+	@NotEmpty
+	@Size(min=2, max=100)
     private String nome;
-    private String email;	
-	private String senha;
-	private Endereco endereco;
-    private Telefone telefone;
-    private Status status;
     
-    public UsuarioDto(Usuario usuario) {
-    	this.nome = usuario.getNome();
-    	this.email = usuario.getEmail();
-    	this.senha = usuario.getSenha();
-    	this.endereco = usuario.getEndereco();
-    	this.telefone = usuario.getTelefone();
-    	this.status = usuario.getStatus();
-    }
-
+    @Email
+    private String email;	
+	
+    @NotEmpty
+	@Size(min=6, max=20)
+    private String senha;
+    
+    @Valid
+	private EnderecoDto endereco;
+	
+    @Valid
+    private TelefoneDto telefone;
+    
+	private Status status;
+    
 	public static Usuario toModel(UsuarioDto usuarioDto) {
 		return new Usuario(usuarioDto.getNome(),
 							usuarioDto.getEmail(),
 							usuarioDto.getSenha(),
-							usuarioDto.getEndereco(),
-							usuarioDto.getTelefone());
+							EnderecoDto.toModel(usuarioDto.getEndereco()),
+							TelefoneDto.toModel(usuarioDto.getTelefone()));
 	}
 }

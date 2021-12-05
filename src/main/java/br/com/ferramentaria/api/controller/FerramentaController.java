@@ -2,6 +2,8 @@ package br.com.ferramentaria.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,7 +49,7 @@ public class FerramentaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageResponseDto cadastrarFerramenta(@RequestBody FerramentaDto ferramentaDto) throws UsuarioNaoEncontrado {
+	public MessageResponseDto cadastrarFerramenta(@RequestBody @Valid FerramentaDto ferramentaDto) throws UsuarioNaoEncontrado {
 		return ferramentaService.cadastrarFerramenta(ferramentaDto);
 	}
 
