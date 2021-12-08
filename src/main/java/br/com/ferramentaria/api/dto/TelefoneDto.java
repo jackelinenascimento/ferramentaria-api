@@ -20,7 +20,7 @@ public class TelefoneDto {
 	private String ddd;
 	
 	@NotEmpty
-	@Size(min=8, max=9)
+	@Size(min=8, max=10)
 	private String numero;
 
 	public static Telefone toModel(TelefoneDto telefoneDto) {
