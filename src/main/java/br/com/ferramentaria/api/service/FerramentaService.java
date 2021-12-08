@@ -3,6 +3,9 @@ package br.com.ferramentaria.api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.ferramentaria.api.dto.FerramentaDto;
@@ -22,8 +25,12 @@ public class FerramentaService {
 	@Autowired 
 	private UsuarioService usuarioService;
 	
-	public List<FerramentaResponse> listarFerramentas(){
-		List<Ferramenta> ferramentas = ferramentaRepository.findAll();
+	public Page<FerramentaResponse> listarFerramentas(int pagina, int qtd){
+		
+		Pageable paginacao = PageRequest.of(pagina, qtd);
+		
+		Page<Ferramenta> ferramentas = ferramentaRepository.findAll(paginacao);
+		
 		return FerramentaResponse.converter(ferramentas);
 	}
 

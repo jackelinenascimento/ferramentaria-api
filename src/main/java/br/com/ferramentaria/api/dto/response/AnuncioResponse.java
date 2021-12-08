@@ -1,8 +1,8 @@
 package br.com.ferramentaria.api.dto.response;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.ferramentaria.api.entity.Anuncio;
 import br.com.ferramentaria.api.entity.Ferramenta;
@@ -29,8 +29,8 @@ public class AnuncioResponse {
 		this.ferramenta = anuncio.getFerramenta();
 	}
 
-	public static List<AnuncioResponse> converter(List<Anuncio> anuncios) {
-		return anuncios.stream().map(AnuncioResponse::new).collect(Collectors.toList());
+	public static Page<AnuncioResponse> converter(Page<Anuncio> anuncios) {
+		return anuncios.map(AnuncioResponse::new);
 	}
 
 }

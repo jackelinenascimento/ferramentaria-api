@@ -9,5 +9,4 @@ import br.com.ferramentaria.api.entity.Anuncio;
 public interface AnuncioRepository extends JpaRepository<Anuncio, Long> {
 
 	Optional<Anuncio> findByFerramentaIdFerramenta(Long idFerramenta);
-
 }

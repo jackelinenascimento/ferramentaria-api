@@ -9,5 +9,4 @@ import br.com.ferramentaria.api.entity.Ferramenta;
 public interface FerramentaRepository extends JpaRepository<Ferramenta, Long>{
 
 	List<Ferramenta> findByProprietarioIdUsuario(Long id);
-
 }

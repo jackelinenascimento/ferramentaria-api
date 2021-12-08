@@ -1,11 +1,13 @@
 package br.com.ferramentaria.api.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.ferramentaria.api.dto.AnuncioDto;
@@ -21,8 +23,11 @@ public class AnuncioService {
 	@Autowired
 	private AnuncioRepository anuncioRepository;
 	
-	public List<AnuncioResponse> listarAnuncios() {
-		List<Anuncio> anuncios = anuncioRepository.findAll();
+	public Page<AnuncioResponse> listarAnuncios(int pagina, int qtd) {
+		
+		Pageable paginacao = PageRequest.of(pagina, qtd);
+		
+		Page<Anuncio> anuncios = anuncioRepository.findAll(paginacao);
 		return AnuncioResponse.converter(anuncios);
 	}
 
