@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
@@ -23,6 +24,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+	    return new BCryptPasswordEncoder();
 	}
 	
 	@Override

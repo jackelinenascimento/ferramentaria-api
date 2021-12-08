@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.ferramentaria.api.dto.UsuarioDto;
@@ -20,6 +21,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	public List<UsuarioResponse> listaUsuarios() {
 		List<Usuario> usuarios =  usuarioRepository.findAll();
@@ -43,6 +47,9 @@ public class UsuarioService {
 		if(usuario.isPresent()) {
 			throw new IllegalArgumentException("E-mail já cadastrado");			
 		}
+		
+		String senhaCriptografada = encoder.encode(usuarioDto.getSenha());
+		usuarioDto.setSenha(senhaCriptografada);
 		
 		Usuario usuarioSalvo = usuarioRepository.save(UsuarioDto.toModel(usuarioDto));
 		return MessageResponseDto.message("Usuario criado - ID: " +  usuarioSalvo.getIdUsuario());
