@@ -37,7 +37,7 @@ public class AutenticacaoController {
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 			
 		} catch (Exception e) {			
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(new TokenDto("Usuario não encontrado"));
 		}
 	}
 }
