@@ -3,6 +3,8 @@ package br.com.ferramentaria.api.dto.response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
@@ -35,8 +37,11 @@ public class FerramentaResponse {
 		this.proprietarioId = ferramenta.getProprietario().getIdUsuario();		
 	}
 
+	public static Page<FerramentaResponse> converter(Page<Ferramenta> ferramentas) {
+		return ferramentas.map(FerramentaResponse::new);
+	}
+
 	public static List<FerramentaResponse> converter(List<Ferramenta> ferramentas) {
 		return ferramentas.stream().map(FerramentaResponse::new).collect(Collectors.toList());
 	}
-
 }

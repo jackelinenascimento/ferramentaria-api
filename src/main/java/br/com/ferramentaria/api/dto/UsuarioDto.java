@@ -1,10 +1,13 @@
 package br.com.ferramentaria.api.dto;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import br.com.ferramentaria.api.entity.Perfil;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.AllArgsConstructor;
@@ -36,12 +39,15 @@ public class UsuarioDto {
     private TelefoneDto telefone;
     
 	private Status status;
+	
+	private List<Perfil> perfis;
     
 	public static Usuario toModel(UsuarioDto usuarioDto) {
 		return new Usuario(usuarioDto.getNome(),
 							usuarioDto.getEmail(),
 							usuarioDto.getSenha(),
 							EnderecoDto.toModel(usuarioDto.getEndereco()),
-							TelefoneDto.toModel(usuarioDto.getTelefone()));
+							TelefoneDto.toModel(usuarioDto.getTelefone()),
+							usuarioDto.getPerfis());
 	}
 }
