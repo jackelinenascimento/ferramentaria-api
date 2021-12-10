@@ -31,7 +31,7 @@ public class EnderecoDto {
 	private String uf;
     
 	@NotEmpty
-	@Size(min=8, max=8)
+	@Size(min=8, max=9)
 	private String cep;
 
 	public static Endereco toModel(EnderecoDto enderecoDto) {
