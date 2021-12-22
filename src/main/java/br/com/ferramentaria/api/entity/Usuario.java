@@ -120,5 +120,4 @@ public class Usuario implements UserDetails{
 		}
 		return false;
 	}
-
 }
