@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
+import org.springframework.hateoas.RepresentationModel;
 
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.enums.Disponibilidade;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class FerramentaResponse {
+public class FerramentaResponse extends RepresentationModel<UsuarioResponse> {
 
     private Long idFerramenta;	
 	private String nome;
