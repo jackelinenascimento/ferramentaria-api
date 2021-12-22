@@ -3,6 +3,7 @@ package br.com.ferramentaria.api.dto.response;
 import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
+import org.springframework.hateoas.RepresentationModel;
 
 import br.com.ferramentaria.api.entity.Anuncio;
 import br.com.ferramentaria.api.entity.Ferramenta;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AnuncioResponse {
+public class AnuncioResponse extends RepresentationModel<UsuarioResponse> {
 	
 	private Long idAnuncio;
 	private LocalDateTime dataCadastro;
