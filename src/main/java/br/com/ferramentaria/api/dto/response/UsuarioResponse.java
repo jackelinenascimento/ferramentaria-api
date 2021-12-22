@@ -3,16 +3,20 @@ package br.com.ferramentaria.api.dto.response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import br.com.ferramentaria.api.entity.Endereco;
 import br.com.ferramentaria.api.entity.Telefone;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.entity.enums.Status;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-public class UsuarioResponse {
+public class UsuarioResponse extends RepresentationModel<UsuarioResponse> {
 	
     private Long idUsuario;
     private String nome;

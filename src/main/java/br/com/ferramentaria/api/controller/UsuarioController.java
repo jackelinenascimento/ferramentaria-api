@@ -1,11 +1,16 @@
 package br.com.ferramentaria.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,18 +37,33 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@GetMapping
-	public List<UsuarioResponse> listaUsuarios(){
-		return usuarioService.listaUsuarios();
+	public ResponseEntity<List<UsuarioResponse>> listaUsuarios() throws UsuarioNaoEncontrado{
+		
+		List<UsuarioResponse> listaDeUsuarios = usuarioService.listaUsuarios();	
+		for(UsuarioResponse usuario: listaDeUsuarios) {
+				Long id = usuario.getIdUsuario();
+				usuario.add(linkTo(methodOn(UsuarioController.class).pesquisarPorId(id)).withSelfRel());
+		}
+		
+		return new ResponseEntity<List<UsuarioResponse>>(listaDeUsuarios, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public UsuarioResponse pesquisarPorId(@PathVariable Long id) throws UsuarioNaoEncontrado {
-		return usuarioService.pesquisarPorId(id);
+	public ResponseEntity<UsuarioResponse> pesquisarPorId(@PathVariable Long id) throws UsuarioNaoEncontrado {
+		
+		Optional<UsuarioResponse> usuarioPesquisado = Optional.ofNullable(usuarioService.pesquisarPorId(id));
+		usuarioPesquisado.get().add(linkTo(methodOn(UsuarioController.class).listaUsuarios()).withRel("Lista de Usuários"));
+
+		return new ResponseEntity<UsuarioResponse>(usuarioPesquisado.get(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/email/{email}")
-	public UsuarioResponse pesquisarPorEmail(@PathVariable String email) throws UsuarioNaoEncontrado {
-		return usuarioService.pesquisarPorEmail(email);
+	public ResponseEntity<UsuarioResponse> pesquisarPorEmail(@PathVariable String email) throws UsuarioNaoEncontrado {
+		
+		Optional<UsuarioResponse> usuarioPesquisado = Optional.ofNullable(usuarioService.pesquisarPorEmail(email));	
+		usuarioPesquisado.get().add(linkTo(methodOn(UsuarioController.class).listaUsuarios()).withRel("Lista de Usuários"));
+
+		return new ResponseEntity<UsuarioResponse>(usuarioPesquisado.get(), HttpStatus.OK);
 	}
 	
 	@PostMapping
