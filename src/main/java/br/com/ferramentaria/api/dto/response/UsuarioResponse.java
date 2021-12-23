@@ -3,6 +3,7 @@ package br.com.ferramentaria.api.dto.response;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.RepresentationModel;
 
 import br.com.ferramentaria.api.entity.Endereco;
@@ -34,6 +35,10 @@ public class UsuarioResponse extends RepresentationModel<UsuarioResponse> {
     	this.telefone = usuario.getTelefone();
     }
 
+    public static Page<UsuarioResponse> converter(Page<Usuario> usuarios) {
+		return usuarios.map(UsuarioResponse::new);
+	}
+    
 	public static List<UsuarioResponse> converter(List<Usuario> usuarios) {
 		return usuarios.stream().map(UsuarioResponse::new).collect(Collectors.toList());
 	}
