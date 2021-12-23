@@ -11,10 +11,12 @@ import br.com.ferramentaria.api.entity.enums.Disponibilidade;
 import br.com.ferramentaria.api.entity.enums.Modalidade;
 import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.entity.enums.Tensao;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class FerramentaResponse extends RepresentationModel<UsuarioResponse> {
 

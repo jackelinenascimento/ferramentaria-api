@@ -9,10 +9,12 @@ import br.com.ferramentaria.api.entity.Anuncio;
 import br.com.ferramentaria.api.entity.Ferramenta;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.entity.enums.Status;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class AnuncioResponse extends RepresentationModel<UsuarioResponse> {
 	

@@ -28,7 +28,6 @@ public class FerramentaService {
 	public Page<FerramentaResponse> listarFerramentas(int pagina, int qtd){
 		
 		Pageable paginacao = PageRequest.of(pagina, qtd);
-		
 		Page<Ferramenta> ferramentas = ferramentaRepository.findAll(paginacao);
 		
 		return FerramentaResponse.converter(ferramentas);

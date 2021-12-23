@@ -1,11 +1,13 @@
 package br.com.ferramentaria.api.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +27,11 @@ public class UsuarioService {
 	@Autowired
 	private PasswordEncoder encoder;
 
-	public List<UsuarioResponse> listaUsuarios() {
-		List<Usuario> usuarios =  usuarioRepository.findAll();
+	public Page<UsuarioResponse> listaUsuarios(int pagina, int qtd) {
+		
+		Pageable paginacao = PageRequest.of(pagina, qtd);
+		Page<Usuario> usuarios =  usuarioRepository.findAll(paginacao);
+		
 		return UsuarioResponse.converter(usuarios);	
 	}
 

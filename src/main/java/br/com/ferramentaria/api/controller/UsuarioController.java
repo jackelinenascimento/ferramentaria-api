@@ -1,14 +1,12 @@
 package br.com.ferramentaria.api.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ferramentaria.api.dto.UsuarioDto;
@@ -37,39 +35,35 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@GetMapping
-	public ResponseEntity<List<UsuarioResponse>> listaUsuarios() throws UsuarioNaoEncontrado{
+	public ResponseEntity<Page<UsuarioResponse>> listaUsuarios(@RequestParam int pagina, @RequestParam int qtd) throws UsuarioNaoEncontrado{
 		
-		List<UsuarioResponse> listaDeUsuarios = usuarioService.listaUsuarios();	
-		for(UsuarioResponse usuario: listaDeUsuarios) {
-				Long id = usuario.getIdUsuario();
-				usuario.add(linkTo(methodOn(UsuarioController.class).pesquisarPorId(id)).withSelfRel());
+		Page<UsuarioResponse> listaDeUsuarios = usuarioService.listaUsuarios(pagina, qtd);	
+		
+		for(UsuarioResponse usuario: listaDeUsuarios) {		
+				usuario.add(linkTo(methodOn(UsuarioController.class).pesquisarPorId(usuario.getIdUsuario())).withSelfRel());
+				usuario.add(linkTo(methodOn(UsuarioController.class).pesquisarPorEmail(usuario.getEmail())).withSelfRel());
 		}
 		
-		return new ResponseEntity<List<UsuarioResponse>>(listaDeUsuarios, HttpStatus.OK);
+		return new ResponseEntity<Page<UsuarioResponse>>(listaDeUsuarios, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioResponse> pesquisarPorId(@PathVariable Long id) throws UsuarioNaoEncontrado {
 		
-		Optional<UsuarioResponse> usuarioPesquisado = Optional.ofNullable(usuarioService.pesquisarPorId(id));
-		usuarioPesquisado.get().add(linkTo(methodOn(UsuarioController.class).listaUsuarios()).withRel("Lista de Usuários"));
-
-		return new ResponseEntity<UsuarioResponse>(usuarioPesquisado.get(), HttpStatus.OK);
+		return new ResponseEntity<UsuarioResponse>(usuarioService.pesquisarPorId(id), HttpStatus.OK);
 	}
 	
 	@GetMapping("/email/{email}")
 	public ResponseEntity<UsuarioResponse> pesquisarPorEmail(@PathVariable String email) throws UsuarioNaoEncontrado {
-		
-		Optional<UsuarioResponse> usuarioPesquisado = Optional.ofNullable(usuarioService.pesquisarPorEmail(email));	
-		usuarioPesquisado.get().add(linkTo(methodOn(UsuarioController.class).listaUsuarios()).withRel("Lista de Usuários"));
 
-		return new ResponseEntity<UsuarioResponse>(usuarioPesquisado.get(), HttpStatus.OK);
+		return new ResponseEntity<UsuarioResponse>(usuarioService.pesquisarPorEmail(email), HttpStatus.OK);
 	}
 	
 	@PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDto cadastrarUsuario(@RequestBody @Valid UsuarioDto usuarioDto){
-        return usuarioService.cadastrarUsuario(usuarioDto);
+    public ResponseEntity<MessageResponseDto> cadastrarUsuario(@RequestBody @Valid UsuarioDto usuarioDto){
+        
+        return new ResponseEntity<MessageResponseDto>(usuarioService.cadastrarUsuario(usuarioDto), HttpStatus.CREATED);
+        
     }
 	
 }	
