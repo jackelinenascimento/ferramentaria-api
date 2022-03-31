@@ -31,8 +31,10 @@ public class ConversaService {
 	}
 
 	public MessageResponseDto cadastrarConversa(@Valid ConversaDto conversaDto) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Conversa conversaSalva = conversaRepository.save(ConversaDto.toModel(conversaDto));
+		
+		return MessageResponseDto.message("Anuncio salvo - ID: " +  conversaSalva.getIdAnuncio());
 	}
 
 }
