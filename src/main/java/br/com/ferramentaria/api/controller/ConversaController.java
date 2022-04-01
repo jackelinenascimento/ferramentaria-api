@@ -39,7 +39,7 @@ public class ConversaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<MessageResponseDto> cadastrarMensagem(@RequestBody @Valid ConversaDto conversaDto){
+	public ResponseEntity<MessageResponseDto> cadastrarConversa(@RequestBody @Valid ConversaDto conversaDto){
 		
 		return new ResponseEntity<MessageResponseDto>(conversaService.cadastrarConversa(conversaDto), HttpStatus.CREATED);
 		

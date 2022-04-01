@@ -22,18 +22,15 @@ public class ConversaService {
 
 	public List<ConversaResponse> listarConversas(Long idUsuario) {
 		
-		List<Conversa> pesquisa = conversaRepository.findAll();
-		
+		List<Conversa> pesquisa = conversaRepository.findAll();		
 		List<Conversa> pesquisaFiltro = pesquisa.stream().filter(conversa -> conversa.getIdAnunciante().getIdUsuario().equals(idUsuario))
 										.collect(Collectors.toList());
-		
 		return ConversaResponse.converter(pesquisaFiltro);
 	}
 
 	public MessageResponseDto cadastrarConversa(@Valid ConversaDto conversaDto) {
 
 		Conversa conversaSalva = conversaRepository.save(ConversaDto.toModel(conversaDto));
-		
 		return MessageResponseDto.message("Anuncio salvo - ID: " +  conversaSalva.getIdAnuncio());
 	}
 
