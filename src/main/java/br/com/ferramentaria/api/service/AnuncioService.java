@@ -38,9 +38,9 @@ public class AnuncioService {
 
 	public MessageResponseDto cadastrarAnuncio(@Valid AnuncioDto anuncioDto) {
 		
-		Optional<Anuncio> anuncio = anuncioRepository.findByFerramentaIdFerramenta(anuncioDto.getFerramenta().getIdFerramenta());
+		Optional<Anuncio> ferramenta = anuncioRepository.findByFerramentaIdFerramenta(anuncioDto.getFerramenta().getIdFerramenta());
 		
-		if(anuncio.isPresent()) {
+		if(ferramenta.isPresent()) {
 			throw new IllegalArgumentException("Ferramenta já publicada");
 		}
 		

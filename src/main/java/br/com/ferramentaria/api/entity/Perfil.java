@@ -19,7 +19,7 @@ public class Perfil implements GrantedAuthority{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idPerfil;
 	
 	private String nome;
 	
