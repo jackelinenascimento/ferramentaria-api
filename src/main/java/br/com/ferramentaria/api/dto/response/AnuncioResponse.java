@@ -21,14 +21,14 @@ public class AnuncioResponse extends RepresentationModel<UsuarioResponse> {
 	private Long idAnuncio;
 	private LocalDateTime dataCadastro;
 	private Status status;
-	private Usuario proprietario;
+	private Long proprietario;
 	private Ferramenta ferramenta;
 	
 	public AnuncioResponse(Anuncio anuncio) {
 		this.idAnuncio = anuncio.getIdAnuncio();
 		this.dataCadastro = anuncio.getDataCadastro();
 		this.status = anuncio.getStatus();
-		this.proprietario = anuncio.getProprietario();
+		this.proprietario = anuncio.getProprietario().getIdUsuario();
 		this.ferramenta = anuncio.getFerramenta();
 	}
 
