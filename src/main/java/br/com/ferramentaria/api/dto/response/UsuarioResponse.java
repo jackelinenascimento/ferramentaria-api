@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.RepresentationModel;
 
-import br.com.ferramentaria.api.entity.Endereco;
-import br.com.ferramentaria.api.entity.Telefone;
 import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.Getter;
@@ -23,16 +21,16 @@ public class UsuarioResponse extends RepresentationModel<UsuarioResponse> {
     private String nome;
     private String email;	
     private Status status;
-    private Endereco endereco;
-    private Telefone telefone;
+    private EnderecoResponse endereco;
+    private TelefoneResponse telefone;
     
     public UsuarioResponse(Usuario usuario) {
     	this.idUsuario = usuario.getIdUsuario();
     	this.nome = usuario.getNome();
     	this.email = usuario.getEmail();
     	this.status = usuario.getStatus();
-    	this.endereco = usuario.getEndereco();
-    	this.telefone = usuario.getTelefone();
+    	this.endereco = new EnderecoResponse(usuario.getEndereco());
+    	this.telefone = new TelefoneResponse(usuario.getTelefone());
     }
 
     public static Page<UsuarioResponse> converter(Page<Usuario> usuarios) {

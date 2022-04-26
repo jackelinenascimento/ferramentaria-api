@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,5 +66,11 @@ public class UsuarioController {
         return new ResponseEntity<MessageResponseDto>(usuarioService.cadastrarUsuario(usuarioDto), HttpStatus.CREATED);
         
     }
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<MessageResponseDto> atualizarDados(@PathVariable Long id, @RequestBody @Valid UsuarioDto usuarioDto) throws UsuarioNaoEncontrado{
+		
+		return new ResponseEntity<MessageResponseDto>(usuarioService.atualizarDadosUsuario(id, usuarioDto), HttpStatus.OK);
+	}
 	
 }	
