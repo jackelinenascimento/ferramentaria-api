@@ -26,6 +26,7 @@ import br.com.ferramentaria.api.dto.response.MessageResponseDto;
 import br.com.ferramentaria.api.exceptions.FerramentaNaoEncontrada;
 import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
 import br.com.ferramentaria.api.service.FerramentaService;
+import br.com.ferramentaria.api.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -36,6 +37,9 @@ public class FerramentaController {
 	
 	@Autowired
 	private FerramentaService ferramentaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;	
 	
 	@GetMapping
 	public ResponseEntity<Page<FerramentaResponse>> listarFerramentas(@RequestParam int pagina, @RequestParam int qtd) throws FerramentaNaoEncontrada{
@@ -65,6 +69,10 @@ public class FerramentaController {
 	
 	@PostMapping
 	public ResponseEntity<MessageResponseDto> cadastrarFerramenta(@RequestBody @Valid FerramentaDto ferramentaDto) throws UsuarioNaoEncontrado {
+		
+		Long id = ferramentaDto.getProprietarioId();
+		
+		ferramentaDto.setProprietario(usuarioService.verificaSeExistePorId(id));
 		
 		return new ResponseEntity<MessageResponseDto>(ferramentaService.cadastrarFerramenta(ferramentaDto), HttpStatus.CREATED);
 	}
