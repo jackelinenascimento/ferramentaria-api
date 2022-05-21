@@ -26,6 +26,7 @@ public class FerramentaDto {
 	
 	@NotEmpty
 	private String nome;
+	
 	private String descricao;
 	
 	@NotNull
@@ -37,11 +38,12 @@ public class FerramentaDto {
 	@NotNull
 	private Disponibilidade disponibilidade;
 	
-	@NotNull
+	private Long proprietarioId;
+	
 	private Usuario proprietario;
 	
 	private Status status;
-	
+			
 	public static Ferramenta toModel(FerramentaDto ferramentaDto) {
 		return new Ferramenta(ferramentaDto.getNome(),
 							  ferramentaDto.getTensao(),
