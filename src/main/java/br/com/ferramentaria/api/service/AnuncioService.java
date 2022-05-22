@@ -1,5 +1,6 @@
 package br.com.ferramentaria.api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -51,6 +52,11 @@ public class AnuncioService {
 	private Anuncio verificaSeExistePorId(Long id) throws AnuncioNaoEncontrado {
 		return anuncioRepository.findById(id).orElseThrow(() ->
 				new AnuncioNaoEncontrado(id));
+	}
+
+	public List<AnuncioResponse> persquisaPorProprietarioId(Long id) {
+		List<Anuncio> anuncios = anuncioRepository.findByProprietarioIdUsuario(id);
+		return AnuncioResponse.converter(anuncios);
 	}
 }
 	

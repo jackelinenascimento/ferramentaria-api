@@ -38,6 +38,7 @@ public class FerramentaDto {
 	@NotNull
 	private Disponibilidade disponibilidade;
 	
+	@NotNull
 	private Long proprietarioId;
 	
 	private Usuario proprietario;

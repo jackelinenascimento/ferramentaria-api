@@ -3,6 +3,8 @@ package br.com.ferramentaria.api.controller;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +23,28 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ferramentaria.api.dto.AnuncioDto;
 import br.com.ferramentaria.api.dto.response.AnuncioResponse;
 import br.com.ferramentaria.api.dto.response.MessageResponseDto;
+import br.com.ferramentaria.api.entity.Ferramenta;
+import br.com.ferramentaria.api.entity.Usuario;
 import br.com.ferramentaria.api.exceptions.AnuncioNaoEncontrado;
+import br.com.ferramentaria.api.exceptions.FerramentaNaoEncontrada;
+import br.com.ferramentaria.api.exceptions.UsuarioNaoEncontrado;
 import br.com.ferramentaria.api.service.AnuncioService;
+import br.com.ferramentaria.api.service.FerramentaService;
+import br.com.ferramentaria.api.service.UsuarioService;
 
 @RestController
-@RequestMapping("/anuncios")
+@RequestMapping("/anuncios")	
 @CrossOrigin
 public class AnuncioController {
 
 	@Autowired
 	private AnuncioService anuncioService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private FerramentaService ferramentaService;
 	
 	@GetMapping
 	public ResponseEntity<Page<AnuncioResponse>> listarAnuncios(@RequestParam int pagina, @RequestParam int qtd) throws AnuncioNaoEncontrado{
@@ -51,8 +65,22 @@ public class AnuncioController {
 
 	}
 	
+	@GetMapping("/proprietario/{id}")
+	public ResponseEntity<List<AnuncioResponse>> pesquisaPorProprietarioId(@PathVariable Long id) throws UsuarioNaoEncontrado{
+		
+		return new ResponseEntity<List<AnuncioResponse>>(anuncioService.persquisaPorProprietarioId(id), HttpStatus.OK);
+	}
+	
 	@PostMapping
-	public ResponseEntity<MessageResponseDto> cadastrarAnuncio(@RequestBody @Valid AnuncioDto anuncioDto) {
+	public ResponseEntity<MessageResponseDto> cadastrarAnuncio(@RequestBody @Valid AnuncioDto anuncioDto) throws UsuarioNaoEncontrado, FerramentaNaoEncontrada {
+		
+		Usuario proprietario = usuarioService.verificaSeExistePorId(anuncioDto.getProprietarioId());
+		
+		anuncioDto.setProprietario(proprietario);
+		
+		Ferramenta ferramenta = ferramentaService.verificaSeExistePorId(anuncioDto.getFerramentaId());
+		
+		anuncioDto.setFerramenta(ferramenta);
 		
 		return new ResponseEntity<MessageResponseDto>(anuncioService.cadastrarAnuncio(anuncioDto), HttpStatus.CREATED);
 	}
