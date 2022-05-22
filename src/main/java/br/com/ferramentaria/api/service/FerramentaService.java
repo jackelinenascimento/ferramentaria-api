@@ -51,7 +51,7 @@ public class FerramentaService {
 		return FerramentaResponse.converter(ferramentas);
 	}
 
-	private Ferramenta verificaSeExistePorId(Long id) throws FerramentaNaoEncontrada {
+	public Ferramenta verificaSeExistePorId(Long id) throws FerramentaNaoEncontrada {
 		return ferramentaRepository.findById(id).orElseThrow(() ->
 		new FerramentaNaoEncontrada(id));
 	}
