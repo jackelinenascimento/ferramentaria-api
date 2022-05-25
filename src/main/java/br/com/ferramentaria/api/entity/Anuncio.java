@@ -30,10 +30,10 @@ public class Anuncio {
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	private Usuario proprietario;
 	
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Ferramenta ferramenta;
 	
 	public Anuncio(Usuario proprietario, Ferramenta ferramenta) {

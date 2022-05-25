@@ -3,8 +3,6 @@ package br.com.ferramentaria.api.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,7 @@ public class ConversaService {
 		return ConversaResponse.converter(pesquisaFiltro);
 	}
 
-	public MessageResponseDto cadastrarConversa(@Valid ConversaDto conversaDto) {
+	public MessageResponseDto cadastrarConversa(ConversaDto conversaDto) {
 
 		Conversa conversaSalva = conversaRepository.save(ConversaDto.toModel(conversaDto));
 		return MessageResponseDto.message("Anuncio salvo - ID: " +  conversaSalva.getIdAnuncio());

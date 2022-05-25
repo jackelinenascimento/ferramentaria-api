@@ -24,7 +24,6 @@ import br.com.ferramentaria.api.entity.enums.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
 @NoArgsConstructor

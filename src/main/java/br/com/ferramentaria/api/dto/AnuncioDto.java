@@ -1,7 +1,6 @@
 package br.com.ferramentaria.api.dto;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import br.com.ferramentaria.api.entity.Anuncio;
 import br.com.ferramentaria.api.entity.Ferramenta;
@@ -17,14 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnuncioDto {
 	
-	@NotNull
-	private Long proprietarioId;
-	
-	@NotEmpty
+	@NotEmpty	
     private Usuario proprietario;
-	
-	@NotNull
-	private Long ferramentaId;
 	
 	@NotEmpty
 	private Ferramenta ferramenta;
