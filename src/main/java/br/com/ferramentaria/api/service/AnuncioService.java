@@ -15,6 +15,7 @@ import br.com.ferramentaria.api.dto.AnuncioDto;
 import br.com.ferramentaria.api.dto.response.AnuncioResponse;
 import br.com.ferramentaria.api.dto.response.MessageResponseDto;
 import br.com.ferramentaria.api.entity.Anuncio;
+import br.com.ferramentaria.api.entity.enums.Status;
 import br.com.ferramentaria.api.exceptions.AnuncioNaoEncontrado;
 import br.com.ferramentaria.api.repository.AnuncioRepository;
 
@@ -39,6 +40,10 @@ public class AnuncioService {
 
 	public MessageResponseDto cadastrarAnuncio(@Valid AnuncioDto anuncioDto) {
 		
+		if(anuncioDto.getFerramenta().getStatus() == Status.INATIVO) {
+			throw new IllegalArgumentException("Ferramenta com status INATIVO");
+		}
+		
 		Optional<Anuncio> ferramenta = anuncioRepository.findByFerramentaIdFerramenta(anuncioDto.getFerramenta().getIdFerramenta());
 		
 		if(ferramenta.isPresent()) {
@@ -49,7 +54,7 @@ public class AnuncioService {
 		return MessageResponseDto.message("Anuncio salvo - ID: " +  anuncioSalvo.getIdAnuncio());
 	}
 
-	private Anuncio verificaSeExistePorId(Long id) throws AnuncioNaoEncontrado {
+	public Anuncio verificaSeExistePorId(Long id) throws AnuncioNaoEncontrado {
 		return anuncioRepository.findById(id).orElseThrow(() ->
 				new AnuncioNaoEncontrado(id));
 	}

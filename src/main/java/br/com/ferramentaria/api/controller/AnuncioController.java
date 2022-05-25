@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ferramentaria.api.dto.AnuncioDto;
+import br.com.ferramentaria.api.dto.mapper.AnuncioMapper;
 import br.com.ferramentaria.api.dto.response.AnuncioResponse;
 import br.com.ferramentaria.api.dto.response.MessageResponseDto;
 import br.com.ferramentaria.api.entity.Ferramenta;
@@ -72,16 +73,13 @@ public class AnuncioController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<MessageResponseDto> cadastrarAnuncio(@RequestBody @Valid AnuncioDto anuncioDto) throws UsuarioNaoEncontrado, FerramentaNaoEncontrada {
+	public ResponseEntity<MessageResponseDto> cadastrarAnuncio(@RequestBody @Valid AnuncioMapper anuncioMapper) throws UsuarioNaoEncontrado, FerramentaNaoEncontrada {
+				
+		Usuario proprietario = usuarioService.verificaSeExistePorId(anuncioMapper.getProprietarioId());
+		Ferramenta ferramenta = ferramentaService.verificaSeExistePorId(anuncioMapper.getFerramentaId());
 		
-		Usuario proprietario = usuarioService.verificaSeExistePorId(anuncioDto.getProprietarioId());
-		
-		anuncioDto.setProprietario(proprietario);
-		
-		Ferramenta ferramenta = ferramentaService.verificaSeExistePorId(anuncioDto.getFerramentaId());
-		
-		anuncioDto.setFerramenta(ferramenta);
-		
+		AnuncioDto anuncioDto = new AnuncioDto(proprietario, ferramenta);
+
 		return new ResponseEntity<MessageResponseDto>(anuncioService.cadastrarAnuncio(anuncioDto), HttpStatus.CREATED);
 	}
 }

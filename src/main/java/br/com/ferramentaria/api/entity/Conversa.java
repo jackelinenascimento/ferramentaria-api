@@ -25,13 +25,13 @@ public class Conversa {
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.ATIVO;
 	
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Usuario idAnunciante;
 	
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Usuario idInteressado;
 	
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Anuncio idAnuncio;
 
 	public Conversa(Usuario idAnunciante, Usuario idInteressado, Anuncio idAnuncio) {
